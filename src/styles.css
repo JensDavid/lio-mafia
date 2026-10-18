@@ -1,0 +1,264 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist", ui-sans-serif, sans-serif;
+  --font-display: "Instrument Serif", Georgia, serif;
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-signal: var(--signal);
+  --color-signal-foreground: var(--signal-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-overlay: var(--overlay);
+}
+
+:root {
+  --radius: 0.25rem;
+  --background: oklch(0.997 0.001 100);
+  --foreground: oklch(0.15 0.002 100);
+  --card: oklch(0.985 0.002 100);
+  --card-foreground: oklch(0.18 0.005 60);
+  --popover: oklch(0.993 0.003 85);
+  --popover-foreground: oklch(0.18 0.005 60);
+  --primary: oklch(0.13 0.002 100);
+  --primary-foreground: oklch(0.982 0.004 85);
+  --secondary: oklch(0.955 0.005 80);
+  --secondary-foreground: oklch(0.2 0.006 60);
+  --muted: oklch(0.955 0.005 80);
+  --muted-foreground: oklch(0.52 0.008 70);
+  --accent: oklch(0.94 0.006 80);
+  --accent-foreground: oklch(0.2 0.006 60);
+  --signal: oklch(0.25 0.002 100);
+  --signal-foreground: oklch(0.99 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(0.925 0.002 100);
+  --border-strong: oklch(0.8 0.008 75);
+  --input: oklch(0.905 0.006 80);
+  --ring: oklch(0.2 0.006 60);
+  --overlay: oklch(0.18 0.005 60 / 0.35);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+  }
+}
+
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.08;
+}
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--color-muted-foreground);
+}
+@utility surface {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition:
+    border-color 160ms ease,
+    opacity 160ms ease;
+}
+@utility interactive {
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease;
+  &:hover {
+    border-color: var(--color-border-strong);
+    background: var(--color-card);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes activate {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--signal) 40%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 10px transparent;
+  }
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+@utility animate-rise {
+  animation: rise 420ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@utility animate-activate {
+  animation: activate 600ms cubic-bezier(0.2, 0.7, 0.2, 1) 250ms both;
+}
+@utility animate-pulse-ring {
+  animation: pulse-ring 1.8s ease-out infinite;
+}
+@utility animate-twinkle {
+  animation: twinkle 1.6s ease-in-out infinite;
+}
+
+/* High-contrast brand sections reuse the same semantic roles. */
+.brand-dark {
+  --foreground: oklch(0.985 0.001 100);
+  --background: oklch(0.13 0.002 100);
+  --card: oklch(0.18 0.002 100);
+  --popover: oklch(0.15 0.002 100);
+  --primary: oklch(0.985 0.001 100);
+  --primary-foreground: oklch(0.13 0.002 100);
+  --secondary: oklch(0.23 0.002 100);
+  --secondary-foreground: oklch(0.93 0.001 100);
+  --muted-foreground: oklch(0.7 0.002 100);
+  --border: oklch(0.3 0.002 100);
+  --border-strong: oklch(0.46 0.002 100);
+  --signal: oklch(0.985 0.001 100);
+  color: var(--foreground);
+  background: var(--background);
+}
+@layer base {
+  button,
+  a,
+  input,
+  textarea {
+    letter-spacing: 0 !important;
+  }
+  button {
+    cursor: pointer;
+  }
+  input,
+  textarea {
+    min-width: 0;
+  }
+  h1,
+  h2,
+  h3 {
+    overflow-wrap: break-word;
+  }
+  .tracking-tight {
+    letter-spacing: 0;
+  }
+  .display.uppercase {
+    text-transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+.section-nav {
+  display: flex;
+  gap: 1.75rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2rem;
+  overflow-x: auto;
+}
+.section-tab {
+  padding: 0.75rem 0;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+}
+.section-tab:hover {
+  color: var(--foreground);
+}
+.section-tab.active {
+  color: var(--foreground);
+  border-color: var(--foreground);
+  font-weight: 500;
+}
+.field {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: var(--background);
+  border-radius: var(--radius);
+  padding: 0.7rem;
+  font-size: 0.875rem;
+  outline-color: var(--ring);
+}
+.chip {
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  transition:
+    border-color 160ms ease,
+    color 160ms ease;
+}
+.chip:hover {
+  border-color: var(--border-strong);
+  color: var(--foreground);
+}
+.chip[aria-pressed="true"] {
+  border-color: var(--foreground);
+  background: var(--foreground);
+  color: var(--background);
+}
